@@ -16,8 +16,8 @@ class HomeListView(ListView):
         return context
 
 
-def about(request):
-    return render(request, 'core/about.html')
+def login(request):
+    return render(request, 'core/login.html')
 
 
 def contact(request):

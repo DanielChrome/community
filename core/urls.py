@@ -14,7 +14,7 @@ home_list_view = views.HomeListView.as_view(
 
 urlpatterns = [
     path("", home_list_view, name="home"),
-    path("about", views.about, name="about"),
+    path("login", views.login, name="login"),
     path("contact", views.contact, name="contact"),
     path("log/", views.log_message, name="log"),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
