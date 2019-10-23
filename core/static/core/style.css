@@ -9,11 +9,12 @@ body {
 }
 
 .container {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: flex;
+  /*display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+  */
   max-width: 1012px;
   margin: 20px auto;
   padding: 20px 20px;

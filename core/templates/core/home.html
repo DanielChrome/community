@@ -1,0 +1,26 @@
+{% extends "core/layout.html" %}
+{% block title %}
+Home
+{% endblock %}
+{% block content %}
+<section class="hero is-dark is-medium">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        Welcome to <strong>Community</strong>
+      </h1>
+      <p class="subtitle">
+        The best social-media made ever!
+      </p>
+    {% if user.is_authenticated %}
+        <h2>Bem vindo: {{ user.username }}</h2>
+        <p><a href="{% url 'logout' %}" class="button is-danger">Sair</a></p>
+    {% else %}
+        <p><a href="{% url 'login' %}" class="button is-primary">Entrar</a><a href="{% url 'signup' %}" class="button is-default">Registrar</a></p>
+    {% endif %}
+    </div>
+  </div>
+</section>    
+     
+
+{% endblock %}

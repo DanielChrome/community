@@ -1,20 +1,16 @@
-from django.urls import path
+from django.urls import path, include
 from core import views
 from core.models import LogMessage
 from django.conf import settings
 from django.conf.urls.static import static
-
-
-home_list_view = views.HomeListView.as_view(
-    queryset=LogMessage.objects.order_by("-log_date")[:5],  # :5 limits the results to the five most recent
-    context_object_name="message_list",
-    template_name="core/index.html",
-)
-
+from django.conf.urls import url
+from django.contrib import admin
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
-    path("", home_list_view, name="home"),
-    path("login", views.login, name="login"),
-    path("contact", views.contact, name="contact"),
-    path("log/", views.log_message, name="log"),
+    path("", views.home, name="home"),
+    path('users/', include('users.urls')),
+    # path('users/', include('django.contrib.auth.urls')),
+    # path("logout", auth_views.LogoutView, name="logout"),
+    path("admin/", admin.site.urls, name="admin"),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

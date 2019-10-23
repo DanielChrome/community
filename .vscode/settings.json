@@ -1,5 +1,5 @@
 {
-    "python.pythonPath": "env\\Scripts\\python.exe",
-    "python.linting.pep8Enabled": true,
-    "python.linting.pep8Args": ["--max-line-length=120" ]
+    "python.pythonPath": "C:\\Python3\\python.exe",
+    "python.linting.pycodestyleEnabled": true,
+    "python.linting.pycodestyleArgs": ["--max-line-length=120" ]
 }
