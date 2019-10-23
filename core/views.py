@@ -9,10 +9,10 @@ from django.views.generic import ListView
 def home(request):
     return render(request, "core/home.html")
 
+
 def login(request):
     return render(request, 'registration/login.html')
 
 
 def contact(request):
     return render(request, "core/contact.html")
-

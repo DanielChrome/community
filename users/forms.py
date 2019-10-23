@@ -22,4 +22,3 @@ class CustomUserLoginForm(AuthenticationForm):
         attrs={'class': 'input'}))
     password = forms.CharField(widget=forms.PasswordInput(
         attrs={'class': 'input'}))
-
