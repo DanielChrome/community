@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-LOGIN_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = 'main'
 LOGOUT_REDIRECT_URL = 'home'
 # Application definition
 
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'users.apps.UsersConfig',
     'core',
+    'social',
 ]
 
 AUTH_USER_MODEL = 'users.CustomUser'
@@ -122,3 +123,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = 'media'

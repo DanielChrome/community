@@ -1,0 +1,42 @@
+{% extends "core/layout.html" %}
+
+{% block title %}Principal{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <div class="columns">
+      {% include "main_left.html" %}
+      <div class="column is-6">
+        <div class="content is-small">
+            {% include "main_info_profile.html" %}         
+          <div class="box">
+            <h4 id="let" class="title is-3">let</h4>
+            <article class="message is-primary">
+              <span class="icon has-text-primary">
+                <i class="fas fa-info-circle"></i>
+              </span>
+              <div class="message-body">
+                Block-scoped. Can be re-assigned.
+              </div>
+            </article>
+            <pre><code class="language-javascript">let i = 0;</code></pre>
+          </div>
+          <div class="box">
+            <h4 id="lorem" class="title is-4">More to come...</h4>
+            <article class="message is-primary">
+              <span class="icon has-text-primary">
+                <i class="fas fa-info-circle"></i>
+              </span>
+              <div class="message-body">
+                Lorem ipsum dolor sit amet, mea ne viderer veritus menandri, id scaevola gloriatur instructior sit.
+              </div>
+            </article>
+            <pre><code class="language-javascript">let i = 0;</code></pre>
+          </div>
+        </div>
+      </div>
+      <div class="column is-4">
+        {% include "main_friends_box.html" %}
+    </div>
+  </div>
+{% endblock %}

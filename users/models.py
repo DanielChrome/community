@@ -3,8 +3,9 @@ from django.db import models
 
 
 class CustomUser(AbstractUser):
-    pass
+    bio = models.TextField(default="")
+    photo = models.ImageField(upload_to='user_photos', null=True, blank=True)
     # add additional fields in here
 
     def __str__(self):
-        return self.email
+        return self.first_name + ' ' + self.last_name

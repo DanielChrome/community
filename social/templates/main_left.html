@@ -1,0 +1,33 @@
+{% load static %}
+<div class="column is-2">
+    <div class="card">
+      <div class="card-image">
+        <figure class="image is-1by1">
+            {% if user.photo %}
+            <img src="/media/{{ user.photo }}" alt="Profile"> 
+            {% else %}
+                <img src="{% static 'images/profile_default.png' %}" alt="Profile"> 
+            {% endif %}
+                        
+        </figure>
+      </div>
+      <div class="card-content">
+        <div class="media">
+          <div class="media-content">
+            <p class="title is-5">{{ user.username }}</p>
+            <p class="subtitle is-6">@danielchrome</p>
+          </div>
+        </div>
+
+        <div class="content">
+          <ul class="menu-list">
+            <li><span class="tag is-white is-medium">Home</span></li>
+            <li><span class="tag is-white is-medium">Scraps</span></li>
+            <li><span class="tag is-white is-medium">Communyts</span></li>
+            <li><span class="tag is-white is-medium">Friends</span></li>
+            <li><span class="tag is-white is-medium">Exit</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
