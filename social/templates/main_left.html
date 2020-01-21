@@ -14,20 +14,27 @@
       <div class="card-content">
         <div class="media">
           <div class="media-content">
-            <p class="title is-5">{{ user.username }}</p>
-            <p class="subtitle is-6">@danielchrome</p>
+            <p class="title is-5">{{ user.first_name }} {{ user.last_name }}</p>
+            <p class="subtitle is-6">@{{user.username}}</p>
           </div>
         </div>
-
-        <div class="content">
-          <ul class="menu-list">
-            <li><span class="tag is-white is-medium">Home</span></li>
-            <li><span class="tag is-white is-medium">Scraps</span></li>
-            <li><span class="tag is-white is-medium">Communyts</span></li>
-            <li><span class="tag is-white is-medium">Friends</span></li>
-            <li><span class="tag is-white is-medium">Exit</span></li>
+        <ul class="menu-list">
+            <li>
+              <a href="{% url 'main' %}">
+                <span class="icon"><i class="fa fa-home"></i></span> Principal
+              </a>
+            </li>
+            <li>
+              <a href="{% url 'profile' %}">
+                <span class="icon"><i class="fa fa-id-card"></i></span> Perfil
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <span class="icon"><i class="fa fa-info"></i></span> Sobre
+              </a>
+            </li>
           </ul>
-        </div>
       </div>
     </div>
   </div>

@@ -1,0 +1,56 @@
+{% extends "core/layout.html" %}
+
+{% block title %}Principal{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <div class="columns">
+      {% include "main_left.html" %}
+      <div class="column is-10">
+        <div class="box">
+          <h4 id="username" class="title is-3">{{ user.first_name }} {{ user.last_name}} (@{{user.username}})</h4> 
+          <p><b>Email</b> {{ user.email }}</p>
+          <div class='profile-options is-fullwidth'>
+            <div class='tabs is-fullwidth is-medium'>
+              <ul>
+                <li class='link is-active'>
+                  <a>
+                    <span class='icon'>
+                      <i class='fa fa-list'></i>
+                    </span>
+                    <span>Dados Principais</span>
+                  </a>
+                </li>
+                <li class='link'>
+                  <a>
+                    <span class='icon'>
+                      <i class='fa fa-thumbs-up'></i>
+                    </span>
+                    <span>Meus Interesses</span>
+                  </a>
+                </li>
+                <li class='link'>
+                  <a>
+                    <span class='icon'>
+                      <i class='fa fa-users'></i>
+                    </span>
+                    <span>Amigos</span>
+                  </a>
+                </li>
+                <li class='link'>
+                  <a>
+                    <span class='icon'>
+                      <i class='fa fa-info-circle'></i>
+                    </span>
+                    <span>Outros</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>      
+  </div>
+{% endblock %}

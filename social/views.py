@@ -7,3 +7,7 @@ from django.views.generic import ListView
 
 def main(request):
     return render(request, "main.html")
+
+
+def profile(request):
+    return render(request, "profile.html")
