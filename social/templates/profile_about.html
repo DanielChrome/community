@@ -1,0 +1,33 @@
+
+  <div id="About" class="content-tab" >
+    <div class="columns">
+      <div class="column is-one-quarter">
+        <aside class="menu">
+          <ul class="menu-list">
+            <li onclick="clickMenu(event,'General')"><a class="menu-about is-active">Geral</a></li>
+            <li onclick="clickMenu(event,'Interest')"><a class="menu-about" >Interesses</a></li>
+            <li><a class="menu-about">Contatos</a></li>
+          </ul>      
+        </aside>
+      </div>
+      <div class="column">
+        <div class="notification">
+          <div id="General" class="content-menu-about">
+            <table class="table is-fullwidth">
+              <tr><td><b>Primeiro nome</b></td><td>{{ user.first_name }}</td></tr>
+              <tr><td><b>Último Nome</b></td><td>{{ user.last_name }}</td></tr>
+              <tr><td><b>Email</b></td><td>{{ user.email }}</td></tr>
+              <tr><td><b>Último Login</b></td><td>{{ user.last_login|date:'d/m/Y H:i' }}</td></tr>
+              <tr><td><b>Usuário desde</b></td><td>{{ user.date_joined|date:'d/m/Y H:i' }}</td></tr>
+            </table>
+          </div>
+          <div id="Interest" class="content-menu-about" style="display:none">
+            <table class="table is-fullwidth">
+              <tr><td><b>Carros</b></td></tr>
+              <tr><td><b>Jogos</b></td></tr>
+              <tr><td><b>Futebol</b></td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+  </div>

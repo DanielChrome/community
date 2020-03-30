@@ -13,8 +13,10 @@
       type="text/css"
       href="{% static 'css/bulma.css' %}"
     />
+    {% block script %}
     <script src="https://kit.fontawesome.com/b7355b1d7d.js" crossorigin="anonymous"></script>
-    {% block head %}{% endblock %}
+    {% endblock %}
+    {% block head %}{% endblock %}  
   </head>
 
   <body class="has-background-grey-dark">

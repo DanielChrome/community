@@ -1,7 +1,11 @@
 {% extends "core/layout.html" %}
-
+{% load static %}
 {% block title %}Principal{% endblock %}
-
+{% block script %}
+    {{ block.super }}
+    <script src=" {% static 'script/profile.js' %}"></script>
+   
+{% endblock %}
 {% block content %}
   <div class="container">
     <div class="columns">
@@ -13,7 +17,7 @@
           <div class='profile-options is-fullwidth'>
             <div class='tabs is-fullwidth is-medium'>
               <ul>
-                <li class='link is-active'>
+                <li class='tab is-active' onclick="openTab(event,'About')">
                   <a>
                     <span class='icon'>
                       <i class='fas fa-list'></i>
@@ -21,7 +25,7 @@
                     <span>Sobre</span>
                   </a>
                 </li>
-                <li class='link'>
+                <li class='tab' onclick="openTab(event,'Midia')">
                   <a>
                     <span class='icon'>
                       <i class='fas fa-photo-video'></i>
@@ -29,7 +33,7 @@
                     <span>Fotos</span>
                   </a>
                 </li>
-                <li class='link'>
+                <li class='tab' onclick="openTab(event,'Friends')">
                   <a>
                     <span class='icon'>
                       <i class='fas fa-users'></i>
@@ -46,6 +50,10 @@
                   </a>
                 </li>
               </ul>
+            </div>
+            <div class="container">
+              {% include "profile_about.html" %} 
+              {% include "profile_midia.html" %} 
             </div>
           </div>
         </div>
