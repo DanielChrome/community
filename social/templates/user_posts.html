@@ -1,0 +1,55 @@
+{% extends "core/layout.html" %}
+{% load static %}
+{% block title %}Principal{% endblock %}
+{% block script %}
+    {{ block.super }}   
+{% endblock %}
+{% block content %}
+  <div class="container">
+    <div class="columns">
+      {% include "main_left.html" %}
+      <div class="column is-10">
+        <div class="box">
+          <form action="/social/posts" method="post">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            <div class="field">
+              <label class="label" for="{{ form.message.id_for_label }}"> Novo Post</label>
+              <div class="control">
+                {{ form.message }}
+              </div>        
+              <p class="help is-danger">{{ form.subject.errors }}</p>
+            <div class="control">
+              <input  class="button is-link" type="submit" value="Enviar">
+            </div>
+          </form>
+        </div>
+        <div class="section">
+          {% if posts %}
+            {% for post in posts %}
+            <div class="card">
+              <header class="card-header">
+                <p class="card-header-title">
+                  Postado em {{ post.created_at|date:"d/m/Y H:i" }}
+                </p>
+                <a href="#" class="card-header-icon" aria-label="more options">
+                  <span class="icon">
+                    <i class="fas fa-angle-down" aria-hidden="true"></i>
+                  </span>
+                </a>
+              </header>
+              <div class="card-content">
+                <div class="content">
+                  {{ post.message }}
+                </div>
+              </div>
+            </div>  
+            {% endfor %}
+          {% else %}
+              <p>Não há nenhum post adicionado.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>      
+  </div>
+{% endblock %}

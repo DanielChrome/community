@@ -9,4 +9,5 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
     path("", views.main, name="main"),
     path("profile", views.profile, name="profile"),
+    path("posts", views.user_post, name='userposts'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
