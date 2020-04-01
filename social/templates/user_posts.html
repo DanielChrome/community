@@ -19,12 +19,13 @@
                 {{ form.message }}
               </div>        
               <p class="help is-danger">{{ form.subject.errors }}</p>
+            </div>
             <div class="control">
               <input  class="button is-link" type="submit" value="Enviar">
             </div>
           </form>
         </div>
-        <div class="section">
+        <div class="box">
           {% if posts %}
             {% for post in posts %}
             <div class="card">

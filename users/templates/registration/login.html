@@ -1,14 +1,53 @@
 {% extends "core/layout.html" %} {% block title %}Login{% endblock %}
 {% block content %}
-<h2>Entrar</h2>
-<form method="post">
-  {% csrf_token %}
-  {% for field in form %}
-    <div class=field>
-      <label for="{{ field.id_for_label }}" class="label">{{ field.html_name }}</label>
-      {{ field }}
+<div class="box">
+  <div class="columns">
+    <div class="column is-8 image-vert-centered">
+      <figure class="image">
+        <img src="/static/community-words.jpg">
+      </figure>
     </div>
-  {% endfor %}
-  <button type="submit" class="button is-primary">Entrar</button>
-</form>
+    <div class="column is-4">
+      <h2 class="title is-2">Entrar</h2>
+      <form method="post">
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+        <div class="notification is-danger is-light">
+          {{ form.non_field_errors }}
+        </div>
+        {% endif %}
+        <div class="field">
+          <label class="label" for="{{ form.username.id_for_label }}"> Usuário</label>
+          <div class="control">
+            {{ form.username }}
+          </div>        
+          {% for error in form.username.errors %}
+            <p class="help is-danger">{{ error|escape }}</p>
+          {% endfor %}
+        </div>
+        <div class="field">
+          <label class="label" for="{{ form.password.id_for_label }}"> Senha</label>
+          <div class="control">
+            {{ form.password }}
+          </div>        
+          {% for error in form.password.errors %}
+            <p class="help is-danger">{{ error|escape }}</p>
+          {% endfor %}
+        </div>
+        <div class="buttons is-right">
+          <input  class="button is-link" type="submit" value="Entrar">
+        </div>
+        <div class="box">
+          <div class="columns">
+            <div class="column is-8 image-vert-centered">
+              <p>Ainda não tem uma conta?</p>
+            </div>
+            <div class=" column is-4">
+              <a href="{% url 'signup' %}" class="button is-default">Registrar</a>
+            </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 {% endblock %}

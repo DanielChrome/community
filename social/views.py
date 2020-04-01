@@ -4,10 +4,12 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import ListView
 from .forms import UserPostsForm
 from .models import UserPost
+from users.models import Connections
 
 
 def main(request):
-    return render(request, "main.html")
+    connections = Connections.objects.filter(user=request.user)
+    return render(request, "main.html", {'connections': connections})
 
 
 def profile(request):

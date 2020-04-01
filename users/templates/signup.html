@@ -1,17 +1,61 @@
 {% extends "core/layout.html" %}
-
+{% load static %}
 {% block title %}Registrar{% endblock %}
 
 {% block content %}
-<h2>Registrar</h2>
-<form method="post">
-  {% csrf_token %}
-  {% for field in form %}
-    <div class=field>
-      <label for="{{ field.id_for_label }}" class="label">{{ field.html_name }}</label>
-      {{ field }}
+<div class="box">
+  <div class="columns">
+    <div class="column is-8 image-vert-centered">
+      <figure class="image">
+        <img src="/static/community-words.jpg">
+      </figure>
     </div>
-  {% endfor %}
-  <button type="submit" class="button is-primary">Registrar</button>
-</form>
+    <div class="column is-4">
+      <h2 class="title is-2">Registrar</h2>
+      <form method="post">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        <div class="field">
+          <label class="label" for="{{ form.username.id_for_label }}"> Usuário</label>
+          <div class="control">
+            {{ form.username }}
+          </div>        
+          {% for error in form.username.errors %}
+            <p class="help is-danger">{{ error|escape }}</p>
+          {% endfor %}
+        </div>
+        <div class="field">
+          <label class="label" for="{{ form.email.id_for_label }}"> Email</label>
+          <div class="control">
+            {{ form.email }}
+          </div>        
+          {% for error in form.email.errors %}
+            <p class="help is-danger">{{ error|escape }}</p>
+          {% endfor %}
+        </div>
+        <div class="field">
+          <label class="label" for="{{ form.password1.id_for_label }}"> Senha</label>
+          <div class="control">
+            {{ form.password1 }}
+          </div>        
+          {% for error in form.password1.errors %}
+            <p class="help is-danger">{{ error|escape }}</p>
+          {% endfor %}
+        </div>
+        <div class="field">
+          <label class="label" for="{{ form.password2.id_for_label }}"> Confirmar Senha</label>
+          <div class="control">
+            {{ form.password2 }}
+          </div>        
+          {% for error in form.password2.errors %}
+            <p class="help is-danger">{{ error|escape }}</p>
+          {% endfor %}
+        </div>    
+        <div class="control">
+          <input  class="button is-link" type="submit" value="Registrar">
+        </div>
+      </form>
+      </div>
+  </div>
+</div>
 {% endblock %}
