@@ -7,24 +7,26 @@
 {% block content %}
   <div class="container">
     <div class="columns">
-      {% include "main_left.html" %}
+      {% include "profile_left.html" %}
       <div class="column is-10">
-        <div class="box">
-          <form action="/social/posts" method="post">
-            {% csrf_token %}
-            {{ form.non_field_errors }}
-            <div class="field">
-              <label class="label" for="{{ form.message.id_for_label }}"> Novo Post</label>
+        {% if user_profile.username == user.username %}
+          <div class="box">
+            <form action="/social/{{ user_profile.username }}/posts" method="post">
+              {% csrf_token %}
+              {{ form.non_field_errors }}
+              <div class="field">
+                <label class="label" for="{{ form.message.id_for_label }}"> Novo Post</label>
+                <div class="control">
+                  {{ form.message }}
+                </div>        
+                <p class="help is-danger">{{ form.subject.errors }}</p>
+              </div>
               <div class="control">
-                {{ form.message }}
-              </div>        
-              <p class="help is-danger">{{ form.subject.errors }}</p>
-            </div>
-            <div class="control">
-              <input  class="button is-link" type="submit" value="Enviar">
-            </div>
-          </form>
-        </div>
+                <input  class="button is-link" type="submit" value="Enviar">
+              </div>
+            </form>
+          </div>
+        {% endif %}
         <div class="box">
           {% if posts %}
             {% for post in posts %}

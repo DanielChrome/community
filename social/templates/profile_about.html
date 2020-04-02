@@ -14,11 +14,11 @@
         <div class="notification">
           <div id="General" class="content-menu-about">
             <table class="table is-fullwidth">
-              <tr><td><b>Primeiro nome</b></td><td>{{ user.first_name }}</td></tr>
-              <tr><td><b>Último Nome</b></td><td>{{ user.last_name }}</td></tr>
-              <tr><td><b>Email</b></td><td>{{ user.email }}</td></tr>
-              <tr><td><b>Último Login</b></td><td>{{ user.last_login|date:'d/m/Y H:i' }}</td></tr>
-              <tr><td><b>Usuário desde</b></td><td>{{ user.date_joined|date:'d/m/Y H:i' }}</td></tr>
+              <tr><td><b>Primeiro nome</b></td><td>{{ user_profile.first_name }}</td></tr>
+              <tr><td><b>Último Nome</b></td><td>{{ user_profile.last_name }}</td></tr>
+              <tr><td><b>Email</b></td><td>{{ user_profile.email }}</td></tr>
+              <tr><td><b>Último Login</b></td><td>{{ user_profile.last_login|date:'d/m/Y H:i' }}</td></tr>
+              <tr><td><b>Usuário desde</b></td><td>{{ user_profile.date_joined|date:'d/m/Y H:i' }}</td></tr>
             </table>
           </div>
           <div id="Interest" class="content-menu-about" style="display:none">
@@ -31,3 +31,4 @@
         </div>
       </div>
   </div>
+</div>

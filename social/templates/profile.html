@@ -9,11 +9,11 @@
 {% block content %}
   <div class="container">
     <div class="columns">
-      {% include "main_left.html" %}
+      {% include "profile_left.html" %}
       <div class="column is-10">
         <div class="box">
-          <h4 id="username" class="title is-3">{{ user.first_name }} {{ user.last_name}} (@{{user.username}})</h4> 
-          <p>{{ user.bio }}</p>
+          <h4 id="username" class="title is-3">{{ user_profile.first_name }} {{ user_profile.last_name}} (@{{user_profile.username}})</h4> 
+          <p>{{ user_profile.bio }}</p>
           <div class='profile-options is-fullwidth'>
             <div class='tabs is-fullwidth is-medium'>
               <ul>
@@ -33,12 +33,12 @@
                     <span>Fotos</span>
                   </a>
                 </li>
-                <li class='tab' onclick="openTab(event,'Friends')">
+                <li class='tab' onclick="openTab(event,'Connections')">
                   <a>
                     <span class='icon'>
                       <i class='fas fa-users'></i>
                     </span>
-                    <span>Amigos</span>
+                    <span>Conexões</span>
                   </a>
                 </li>
                 <li class='link'>
@@ -54,6 +54,7 @@
             <div class="container">
               {% include "profile_about.html" %} 
               {% include "profile_midia.html" %} 
+              {% include "profile_connections.html" %} 
             </div>
           </div>
         </div>

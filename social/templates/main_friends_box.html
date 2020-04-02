@@ -15,14 +15,16 @@
             <div class="columns">
                 {% for connection in connections %}             
                     <div class="column is-3">
-                        <figure class="image is-64x64 image-hor-centered">
-                            {% if user.photo %}
-                            <img src="/media/{{ connection.connection.photo }}" alt="{{ connection.connection.first_name }}"> 
-                            {% else %}
-                                <img src="{% static 'images/profile_default.png' %}" alt="{{ connection.connection.first_name }}"> 
-                            {% endif %}
-                        </figure>
-                        <p class="subtitle is-7 has-text-centered">{{ connection.connection.first_name }} {{ connection.connection.last_name }}</p>
+                        <a href="{% url 'profile' user_name=connection.connection.username %}">
+                            <figure class="image is-64x64 image-hor-centered">
+                                {% if user.photo %}
+                                <img src="/media/{{ connection.connection.photo }}" alt="{{ connection.connection.first_name }}"> 
+                                {% else %}
+                                    <img src="{% static 'images/profile_default.png' %}" alt="{{ connection.connection.first_name }}"> 
+                                {% endif %}
+                            </figure>
+                            <p class="subtitle is-7 has-text-centered">{{ connection.connection.first_name }} {{ connection.connection.last_name }}</p>
+                        </a>
                     </div>                       
                 {% endfor %}
             </div>         
