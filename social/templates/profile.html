@@ -12,7 +12,32 @@
       {% include "profile_left.html" %}
       <div class="column is-10">
         <div class="box">
-          <h4 id="username" class="title is-3">{{ user_profile.first_name }} {{ user_profile.last_name}} (@{{user_profile.username}})</h4> 
+          <div class="columns">
+            <div class="column is-9">
+              <h4 id="username" class="title is-3">{{ user_profile.first_name }} {{ user_profile.last_name}} (@{{user_profile.username}})</h4>
+            </div>
+            {% if user_profile.username != user.username %}
+                <div class="column is-3">
+                  <div class="buttons is-right">
+                    {% if is_friends %}
+                    <a class="button is-danger is-small" href="{% url 'removeconnection' user_name=user_profile.username %}">
+                      <span class="icon is-small">
+                        <i class="fas fa-user-friends"></i>
+                      </span>
+                      <span>Desconectar-se</span>
+                    </a>
+                  {% else %}
+                  <a class="button is-link is-small" href="{% url 'addconnection' user_name=user_profile.username %}">
+                    <span class="icon is-small">
+                      <i class="fas fa-user-friends"></i>
+                    </span>
+                    <span>Conectar-se</span>
+                  </a>
+                  {% endif %}
+                </div>             
+              </div> 
+            {% endif %}
+          </div>
           <p>{{ user_profile.bio }}</p>
           <div class='profile-options is-fullwidth'>
             <div class='tabs is-fullwidth is-medium'>

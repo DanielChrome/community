@@ -27,31 +27,75 @@
             </form>
           </div>
         {% endif %}
-        <div class="box">
           {% if posts %}
             {% for post in posts %}
-            <div class="card">
-              <header class="card-header">
-                <p class="card-header-title">
-                  Postado em {{ post.created_at|date:"d/m/Y H:i" }}
-                </p>
-                <a href="#" class="card-header-icon" aria-label="more options">
+            <div style='margin-bottom: .5rem'>
+              <div class="card">
+                <header class="card-header">
+                  <p class="card-header-title">
+                    Postado em {{ post.created_at|date:"d/m/Y H:i" }}
+                  </p>
+                  <a href="#" class="card-header-icon" aria-label="more options">
+                    <span class="icon">
+                      <i class="fas fa-angle-down" aria-hidden="true"></i>
+                    </span>
+                  </a>
+                </header>
+                <div class="card-content">
+                  <div class="content">
+                    {{ post.message }}
+                  </div>
+                </div>
+                <footer class="card-footer">
+                  <div class="buttons are-small">
+                    <button class="button is-white">
+                      <span class="icon">
+                        <i class="fas fa-thumbs-up"></i>
+                      </span>
+                      <span>Curtir</span>
+                    </button>
+                    <button class="button is-white">
+                      <span class="icon">
+                        <i class="fas fa-comment"></i>
+                      </span>
+                      <span>Comentar</span>
+                    </button>
+                  </div>
+                </footer>
+              </div>  
+            </div>
+            {% endfor %}
+          <div class="box">
+            <nav class="pagination is-small" role="navigation" aria-label="pagination">
+              {% if posts.has_previous %}
+                <a class="pagination-previous" href="?page=1">
                   <span class="icon">
-                    <i class="fas fa-angle-down" aria-hidden="true"></i>
+                    <i class="fas fa-angle-double-left"></i>
                   </span>
                 </a>
-              </header>
-              <div class="card-content">
-                <div class="content">
-                  {{ post.message }}
-                </div>
-              </div>
-            </div>  
-            {% endfor %}
+                <a class="pagination-previous" href="?page={{ posts.previous_page_number }}">
+                  <span class="icon">
+                    <i class="fas fa-angle-left"></i>
+                  </span>
+                </a>
+              {% endif %}
+              {% if posts.has_next %}
+                <a class="pagination-next" href="?page={{ posts.next_page_number }}">
+                  <span class="icon">
+                    <i class="fas fa-angle-right"></i>
+                  </span>
+                </a>
+                <a class="pagination-next" href="?page={{ posts.paginator.num_pages }}">
+                  <span class="icon">
+                    <i class="fas fa-angle-double-right"></i>
+                  </span>
+                </a>
+              {% endif %}
+            </nav>
+          </div>
           {% else %}
               <p>Não há nenhum post adicionado.</p>
           {% endif %}
-        </div>
       </div>
     </div>      
   </div>

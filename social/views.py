@@ -4,18 +4,13 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.views.generic import ListView
 from .forms import UserPostsForm
 from .models import UserPost
-from users.models import CustomUser, Connections
+from users.models import CustomUser, Connections, ConnectionType
+from django.core.paginator import Paginator
 
 
 def main(request):
-    connections = Connections.objects.filter(user=request.user)
+    connections = all_connections(request.user)
     return render(request, "main.html", {'connections': connections})
-
-
-def profile__(request):
-    user_profile = request.user
-    connections = Connections.objects.filter(user=request.user)
-    return render(request, "profile.html", {'user_profile': user_profile, 'connections': connections})
 
 
 def profile(request, user_name):
@@ -24,8 +19,47 @@ def profile(request, user_name):
     except CustomUser.DoesNotExist:
         raise Http404("Usuário não encontrado")
 
-    connections = Connections.objects.filter(user=user_profile)
-    return render(request, "profile.html", {'user_profile': user_profile, 'connections': connections})
+    connections = all_connections(user_profile)
+
+    is_friends = False
+    if(user_profile.username != request.user.username):
+        is_friends = (len(Connections.objects.filter(user=user_profile, connection=request.user)) +
+                      len(Connections.objects.filter(user=request.user, connection=user_profile))) > 0
+
+    data = {'user_profile': user_profile,
+            'connections': connections,
+            'is_friends': is_friends}
+    return render(request, "profile.html", data)
+
+
+def add_connection(request, user_name):
+    try:
+        user_profile = CustomUser.objects.get(username=user_name)
+    except CustomUser.DoesNotExist:
+        raise Http404("Usuário não encontrado")
+
+    is_friends = (len(Connections.objects.filter(user=user_profile, connection=request.user)) +
+                  len(Connections.objects.filter(user=request.user, connection=user_profile))) > 0
+
+    if(not is_friends):
+        connection = Connections()
+        connection.user = request.user
+        connection.connection = user_profile
+        connection.connection_type = ConnectionType.objects.get(pk=2)  # Amigo
+        connection.since = today = datetime.today()
+        connection.save()
+
+    return profile(request, user_name)
+
+
+def remove_connection(request, user_name):
+    try:
+        user_profile = CustomUser.objects.get(username=user_name)
+    except CustomUser.DoesNotExist:
+        raise Http404("Usuário não encontrado")
+    Connections.objects.filter(user=user_profile, connection=request.user).delete()
+    Connections.objects.filter(user=request.user, connection=user_profile).delete()
+    return profile(request, user_name)
 
 
 def user_post(request, user_name):
@@ -53,5 +87,22 @@ def user_post(request, user_name):
     else:
         form = UserPostsForm()
 
-    return render(request, 'user_posts.html', {'form': form, 'posts': UserPost.objects.filter(author=user)[:5],
-                  'user_profile': user})
+    posts = UserPost.objects.filter(author=user).order_by('-created_at')
+    paginator = Paginator(posts, 5)  # Show 25 contacts per page.
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'user_posts.html', {'form': form, 'posts': page_obj, 'user_profile': user})
+
+
+def all_connections(user):
+    list = []
+    connections = Connections.objects.filter(user=user)
+    for con in connections:
+        list.append(con)
+    connections = Connections.objects.filter(connection=user)
+    for con in connections:
+        con.connection = con.user
+        con.user = user
+        list.append(con)
+
+    return list

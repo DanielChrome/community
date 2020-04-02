@@ -1,46 +1,44 @@
 {% load static %}
 <div class="column is-2">
-    <div class="card">
-      <div class="card-image">
-        <figure class="image is-1by1">
-            {% if user_profile.photo %}
-            <img src="/media/{{ user_profile.photo }}" alt="Profile"> 
-            {% else %}
-                <img src="{% static 'images/profile_default.png' %}" alt="Profile"> 
-            {% endif %}
-                        
-        </figure>
-      </div>
-      <div class="card-content">
-        <div class="media">
-          <div class="media-content">
-            <p class="title is-5">{{ user_profile.first_name }} {{ user_profile.last_name }}</p>
-            <p class="subtitle is-6">@{{user_profile.username}}</p>
-          </div>
+  <div class="card">
+    <div class="card-image">
+      <figure class="image is-1by1">
+        {% if user_profile.photo %}
+        <img src="/media/{{ user_profile.photo }}" alt="Profile">
+        {% else %}
+        <img src="{% static 'images/profile_default.png' %}" alt="Profile">
+        {% endif %}
+      </figure>
+    </div>
+    <div class="card-content">
+      <div class="media">
+        <div class="media-content">
+          <p class="title is-5">{{ user_profile.first_name }} {{ user_profile.last_name }}</p>
+          <p class="subtitle is-6">@{{user_profile.username}}</p>
         </div>
-        <ul class="menu-list">
-            <li>
-              <a href="{% url 'main' %}">
-                <span class="icon"><i class="fas fa-home"></i></span> Principal
-              </a>
-            </li>
-            <li>
-              <a href="{% url 'profile' user_name=user_profile.username %}">
-                <span class="icon"><i class="fas fa-id-card"></i></span> Perfil
-              </a>
-            </li>
-            <li>
-              <a href="{% url 'userposts' user_name=user_profile.username %}">
-                <span class="icon"><i class="fas fa-info"></i></span> Postagens
-              </a>
-            </li>
-            <li>
-              <a href="{% url 'logout' %}">
-                <span class="icon"><i class="fas fa-sign-out-alt"></i></span> Sair
-              </a>
-            </li>
-            
-          </ul>
       </div>
     </div>
+    <ul class="menu-list">
+      <li>
+        <a href="{% url 'main' %}">
+          <span class="icon"><i class="fas fa-home"></i></span> Principal
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'profile' user_name=user_profile.username %}">
+          <span class="icon"><i class="fas fa-id-card"></i></span> Perfil
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'userposts' user_name=user_profile.username %}">
+          <span class="icon"><i class="fas fa-comments"></i></span> Postagens
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'logout' %}">
+          <span class="icon"><i class="fas fa-sign-out-alt"></i></span> Sair
+        </a>
+      </li>
+    </ul>
   </div>
+</div>
