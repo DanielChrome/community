@@ -1,5 +1,6 @@
 from datetime import datetime
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.views.generic import ListView
 from .forms import UserPostsForm
@@ -8,11 +9,13 @@ from users.models import CustomUser, Connections, ConnectionType
 from django.core.paginator import Paginator
 
 
+@login_required
 def main(request):
     connections = all_connections(request.user)
     return render(request, "main.html", {'connections': connections})
 
 
+@login_required
 def profile(request, user_name):
     try:
         user_profile = CustomUser.objects.get(username=user_name)
@@ -32,6 +35,7 @@ def profile(request, user_name):
     return render(request, "profile.html", data)
 
 
+@login_required
 def add_connection(request, user_name):
     try:
         user_profile = CustomUser.objects.get(username=user_name)
@@ -52,6 +56,7 @@ def add_connection(request, user_name):
     return profile(request, user_name)
 
 
+@login_required
 def remove_connection(request, user_name):
     try:
         user_profile = CustomUser.objects.get(username=user_name)
@@ -62,6 +67,7 @@ def remove_connection(request, user_name):
     return profile(request, user_name)
 
 
+@login_required
 def user_post(request, user_name):
     # if this is a POST request we need to process the form data
     try:
