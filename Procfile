@@ -1,1 +1,1 @@
-web: gunicorn website.wsgo --log-file -
+web: gunicorn comnty.wsgi --log-file -
