@@ -1,0 +1,36 @@
+{% load static %}
+<div class="card">
+    <header class="card-header">
+        <p class="card-header-title">
+            Seguidores
+        </p>
+        <a href="#" class="card-header-icon" aria-label="more options">
+            <span class="tag is-primary is-medium">{{ followers|length }}</span>
+            <span class="tag is-medium">
+                <i class="fas fa-search" aria-hidden="true"></i>
+            </span>
+        </a> 
+    </header>
+    <div class="card-content">
+        {% if followers %}
+            <div class="columns">
+                {% for follower in followers %}             
+                    <div class="column is-3">
+                        <a href="{% url 'profile' user_name=follower.user.username %}">
+                            <figure class="image is-64x64 image-hor-centered">
+                                {% if user.photo %}
+                                <img class="clip-circle" src="/media/{{ follower.user.photo }}" alt="{{ follower.user.first_name }}"> 
+                                {% else %}
+                                    <img class="clip-circle" src="{% static 'images/profile_default.png' %}" alt="{{ follower.user.first_name }}"> 
+                                {% endif %}
+                            </figure>
+                            <p class="subtitle is-7 has-text-centered">{{ follower.user.first_name }} {{ follower.user.last_name }}</p>
+                        </a>
+                    </div>                       
+                {% endfor %}
+            </div>         
+        {% else %}
+            <p>Você ainda não possui seguidores!</p>
+        {% endif %}
+    </div>
+</div>

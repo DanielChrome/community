@@ -27,7 +27,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ['mov-on.herokuapp.com']
+ALLOWED_HOSTS = ['mov-on.herokuapp.com', 'localhost']
 
 LOGIN_URL = '/users/login/'
 LOGIN_REDIRECT_URL = 'main'
@@ -82,7 +82,7 @@ WSGI_APPLICATION = 'comnty.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-default_url = 'sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3')
+default_url = 'postgres://postgres:postgres@localhost:5432/movondb'  # 'sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3')
 
 DATABASES = {'default': config('DATABASE_URL', default=default_url, cast=dburl), }
 

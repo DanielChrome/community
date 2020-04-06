@@ -9,3 +9,9 @@
   margin-top: auto;
   margin-bottom: auto;
 }
+
+.clip-circle {
+  clip-path: circle(60px at center);
+  /* OLD VALUE example: circle(245px, 140px, 50px); */
+  /* Yep, even the new clip-path has deprecated stuff. */
+}

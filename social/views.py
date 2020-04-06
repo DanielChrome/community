@@ -11,8 +11,9 @@ from django.core.paginator import Paginator
 
 @login_required
 def main(request):
-    connections = all_connections(request.user)
-    return render(request, "main.html", {'connections': connections})
+    followings = Connections.objects.filter(user=request.user)
+    followers = Connections.objects.filter(connection=request.user)
+    return render(request, "main.html", {'followings': followings, 'followers': followers})
 
 
 @login_required
@@ -22,16 +23,17 @@ def profile(request, user_name):
     except CustomUser.DoesNotExist:
         raise Http404("Usuário não encontrado")
 
-    connections = all_connections(user_profile)
+    followings = Connections.objects.filter(user=user_profile)
+    followers = Connections.objects.filter(connection=user_profile)
 
-    is_friends = False
+    is_followed = False
     if(user_profile.username != request.user.username):
-        is_friends = (len(Connections.objects.filter(user=user_profile, connection=request.user)) +
-                      len(Connections.objects.filter(user=request.user, connection=user_profile))) > 0
+        is_followed = len(Connections.objects.filter(user=request.user, connection=user_profile)) > 0
 
     data = {'user_profile': user_profile,
-            'connections': connections,
-            'is_friends': is_friends}
+            'followings': followings,
+            'followers': followers,
+            'is_followed': is_followed}
     return render(request, "profile.html", data)
 
 
@@ -49,7 +51,7 @@ def add_connection(request, user_name):
         connection = Connections()
         connection.user = request.user
         connection.connection = user_profile
-        connection.connection_type = ConnectionType.objects.get(pk=2)  # Amigo
+        connection.connection_type = ConnectionType.objects.get(pk=1)  # Amigo
         connection.since = today = datetime.today()
         connection.save()
 
@@ -98,17 +100,3 @@ def user_post(request, user_name):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     return render(request, 'user_posts.html', {'form': form, 'posts': page_obj, 'user_profile': user})
-
-
-def all_connections(user):
-    list = []
-    connections = Connections.objects.filter(user=user)
-    for con in connections:
-        list.append(con)
-    connections = Connections.objects.filter(connection=user)
-    for con in connections:
-        con.connection = con.user
-        con.user = user
-        list.append(con)
-
-    return list

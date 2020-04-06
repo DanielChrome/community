@@ -19,19 +19,19 @@
             {% if user_profile.username != user.username %}
                 <div class="column is-3">
                   <div class="buttons is-right">
-                    {% if is_friends %}
+                    {% if is_followed %}
                     <a class="button is-danger is-small" href="{% url 'removeconnection' user_name=user_profile.username %}">
                       <span class="icon is-small">
                         <i class="fas fa-user-friends"></i>
                       </span>
-                      <span>Desconectar-se</span>
+                      <span>Deixar de Seguir</span>
                     </a>
                   {% else %}
                   <a class="button is-link is-small" href="{% url 'addconnection' user_name=user_profile.username %}">
                     <span class="icon is-small">
                       <i class="fas fa-user-friends"></i>
                     </span>
-                    <span>Conectar-se</span>
+                    <span>Seguir</span>
                   </a>
                   {% endif %}
                 </div>             
@@ -58,20 +58,20 @@
                     <span>Fotos</span>
                   </a>
                 </li>
-                <li class='tab' onclick="openTab(event,'Connections')">
+                <li class='tab' onclick="openTab(event,'Followings')">
                   <a>
                     <span class='icon'>
                       <i class='fas fa-users'></i>
                     </span>
-                    <span>Conexões</span>
+                    <span>Seguindo</span>
                   </a>
                 </li>
-                <li class='link'>
+                <li class='tab' onclick="openTab(event,'Followers')">
                   <a>
                     <span class='icon'>
-                      <i class='fas fa-info-circle'></i>
+                      <i class='fas fa-users'></i>
                     </span>
-                    <span>Outros</span>
+                    <span>Seguidores</span>
                   </a>
                 </li>
               </ul>
@@ -79,7 +79,8 @@
             <div class="container">
               {% include "profile_about.html" %} 
               {% include "profile_midia.html" %} 
-              {% include "profile_connections.html" %} 
+              {% include "profile_following.html" %}
+              {% include "profile_followers.html" %} 
             </div>
           </div>
         </div>

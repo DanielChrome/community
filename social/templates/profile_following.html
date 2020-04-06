@@ -1,0 +1,23 @@
+{% load static %}
+  <div id="Followings" class="content-tab"  style="display:none">
+    {% if followings %}
+        <div class="columns">
+            {% for follow in followings %}             
+                <div class="column is-3">
+                    <a href="{% url 'profile' user_name=follow.connection.username %}">
+                        <figure class="image is-64x64 image-hor-centered">
+                            {% if user.photo %}
+                                <img class="clip-circle" src="/media/{{ follow.connection.photo }}" alt="{{ follow.connection.first_name }}"> 
+                            {% else %}
+                                <img class="clip-circle" src="{% static 'images/profile_default.png' %}" alt="{{ follow.connection.first_name }}"> 
+                            {% endif %}
+                        </figure>
+                        <p class="subtitle is-7 has-text-centered">{{ follow.connection.first_name }} {{ follow.connection.last_name }}</p>
+                    </a>
+                </div>                       
+            {% endfor %}
+        </div>         
+    {% else %}
+        <p>Você ainda não está seguindo ninguem!</p>
+    {% endif %}
+  </div>
