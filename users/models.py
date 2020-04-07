@@ -49,6 +49,7 @@ class Connections(models.Model):
         null=True,
         blank=True
     )
+    pendent = models.BooleanField(default=True)
 
     def __str__(self):
         return self.user.first_name + " - " + self.connection.first_name + ": " + self.connection_type.description

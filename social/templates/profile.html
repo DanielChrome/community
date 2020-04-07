@@ -20,12 +20,21 @@
                 <div class="column is-3">
                   <div class="buttons is-right">
                     {% if is_followed %}
-                    <a class="button is-danger is-small" href="{% url 'removeconnection' user_name=user_profile.username %}">
-                      <span class="icon is-small">
-                        <i class="fas fa-user-friends"></i>
-                      </span>
-                      <span>Deixar de Seguir</span>
-                    </a>
+                      {% if is_followed.pendent %}
+                        <a class="button is-warning is-small" href="#">
+                          <span class="icon is-small">
+                            <i class="fas fa-user-friends"></i>
+                          </span>
+                          <span>Solicitação Pendente</span>
+                        </a>
+                      {% else %}
+                        <a class="button is-danger is-small" href="{% url 'removeconnection' user_name=user_profile.username %}">
+                          <span class="icon is-small">
+                            <i class="fas fa-user-friends"></i>
+                          </span>
+                          <span>Deixar de Seguir</span>
+                        </a>
+                      {% endif %}
                   {% else %}
                   <a class="button is-link is-small" href="{% url 'addconnection' user_name=user_profile.username %}">
                     <span class="icon is-small">

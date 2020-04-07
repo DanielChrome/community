@@ -11,8 +11,8 @@ from django.core.paginator import Paginator
 
 @login_required
 def main(request):
-    followings = Connections.objects.filter(user=request.user)
-    followers = Connections.objects.filter(connection=request.user)
+    followings = Connections.objects.filter(user=request.user, pendent=False)
+    followers = Connections.objects.filter(connection=request.user, pendent=False)
     return render(request, "main.html", {'followings': followings, 'followers': followers})
 
 
@@ -23,12 +23,15 @@ def profile(request, user_name):
     except CustomUser.DoesNotExist:
         raise Http404("Usuário não encontrado")
 
-    followings = Connections.objects.filter(user=user_profile)
-    followers = Connections.objects.filter(connection=user_profile)
+    followings = Connections.objects.filter(user=user_profile, pendent=False)
+    followers = Connections.objects.filter(connection=user_profile, pendent=False)
 
     is_followed = False
     if(user_profile.username != request.user.username):
-        is_followed = len(Connections.objects.filter(user=request.user, connection=user_profile)) > 0
+        try:
+            is_followed = Connections.objects.get(user=request.user, connection=user_profile)
+        except Connections.DoesNotExist:
+            is_followed = False
 
     data = {'user_profile': user_profile,
             'followings': followings,
@@ -44,8 +47,7 @@ def add_connection(request, user_name):
     except CustomUser.DoesNotExist:
         raise Http404("Usuário não encontrado")
 
-    is_friends = (len(Connections.objects.filter(user=user_profile, connection=request.user)) +
-                  len(Connections.objects.filter(user=request.user, connection=user_profile))) > 0
+    is_friends = (len(Connections.objects.filter(user=request.user, connection=user_profile))) > 0
 
     if(not is_friends):
         connection = Connections()
@@ -64,7 +66,7 @@ def remove_connection(request, user_name):
         user_profile = CustomUser.objects.get(username=user_name)
     except CustomUser.DoesNotExist:
         raise Http404("Usuário não encontrado")
-    Connections.objects.filter(user=user_profile, connection=request.user).delete()
+
     Connections.objects.filter(user=request.user, connection=user_profile).delete()
     return profile(request, user_name)
 
