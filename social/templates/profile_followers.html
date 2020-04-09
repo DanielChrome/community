@@ -1,12 +1,59 @@
 {% load static %}
   <div id="Followers" class="content-tab"  style="display:none">
+    {% if followers_p %}
+        <div class="card">
+            <header class="card-header">
+                <p class="card-header-title">
+                    Solicitações Pendentes
+                </p>
+            </header>
+            <div class='carousel is-4 carousel-animated carousel-animate-slide'>
+                <div class='carousel-container'>
+                    {% for pend in followers_p %}
+                        <div class='carousel-item is-active'>
+                            <a href="{% url 'profile' user_name=pend.user.username %}">
+                                <figure class="image is-64x64 image-hor-centered">
+                                    {% if pend.user.photo %}
+                                    <img src="/media/{{ pend.user.photo }}" alt="{{ pend.user.first_name }}"> 
+                                    {% else %}
+                                        <img src="{% static 'images/profile_default.png' %}" alt="{{ pend.user.first_name }}"> 
+                                    {% endif %}
+                                </figure>
+                                <p class="subtitle is-7 has-text-centered">{{ pend.user.first_name }} {{ pend.user.last_name }}</p>                                
+                            </a>
+                            <div class="buttons has-addons is-centered are-small">
+                                <button class="button is-success" onclick="accept(event, '{{ pend.user.username }}', true)">
+                                    <span class="icon is-small">
+                                        <i class="fas fa-check"></i>
+                                    </span>
+                                </button>
+                                <button class="button is-danger" onclick="accept(event, '{{ pend.user.username }}', false)">
+                                    <span class="icon is-small">
+                                        <i class="fas fa-times"></i>
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="carousel-navigation">
+                    <div class="carousel-nav-left">
+                    <i class="fas fa-chevron-left" aria-hidden="true"></i>
+                    </div>
+                    <div class="carousel-nav-right">
+                    <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
     {% if followers %}
         <div class="columns">
             {% for follower in followers %}             
                 <div class="column is-3">
                     <a href="{% url 'profile' user_name=follower.user.username %}">
                         <figure class="image is-64x64 image-hor-centered">
-                            {% if user.photo %}
+                            {% if follower.user.photo %}
                             <img class="clip-circle" src="/media/{{ follower.user.photo }}" alt="{{ follower.user.first_name }}"> 
                             {% else %}
                                 <img class="clip-circle" src="{% static 'images/profile_default.png' %}" alt="{{ follower.user.first_name }}"> 

@@ -26,6 +26,10 @@ function clickMenu(evt, menuName) {
     //evt.currentTarget.getElementsByClassName("menu-about"). className += " is-active";
     menulinks = evt.currentTarget.getElementsByClassName("menu-about");
     for (i = 0; i < x.length; i++) {
-        menulinks[i].className = menulinks[i].className += " is-active";;
+        menulinks[i].className = menulinks[i].className += " is-active";
     }
+}
+
+function accept(event, u, a) {
+    window.location.replace('/social/'+u+'/acceptconnection?accept='+a);
 }

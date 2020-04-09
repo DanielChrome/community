@@ -1,10 +1,14 @@
 {% extends "core/layout.html" %}
 {% load static %}
 {% block title %}Principal{% endblock %}
+{% block style %}
+  {{ block.super }}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/bulma-carousel.min.css' %}"/>
+{% endblock %}
 {% block script %}
     {{ block.super }}
     <script src=" {% static 'script/profile.js' %}"></script>
-   
+    <script src=" {% static 'script/bulma-carousel.min.js' %}"></script>    
 {% endblock %}
 {% block content %}
   <div class="container">

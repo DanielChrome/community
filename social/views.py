@@ -25,6 +25,7 @@ def profile(request, user_name):
 
     followings = Connections.objects.filter(user=user_profile, pendent=False)
     followers = Connections.objects.filter(connection=user_profile, pendent=False)
+    followers_p = Connections.objects.filter(connection=user_profile, pendent=True)
 
     is_followed = False
     if(user_profile.username != request.user.username):
@@ -36,6 +37,7 @@ def profile(request, user_name):
     data = {'user_profile': user_profile,
             'followings': followings,
             'followers': followers,
+            'followers_p': followers_p,
             'is_followed': is_followed}
     return render(request, "profile.html", data)
 
@@ -58,6 +60,30 @@ def add_connection(request, user_name):
         connection.save()
 
     return profile(request, user_name)
+
+
+@login_required
+def accept_connection(request, user_name):
+    try:
+        user_profile = CustomUser.objects.get(username=user_name)
+    except CustomUser.DoesNotExist:
+        raise Http404("Usuário não encontrado")
+
+    try:
+        connect = Connections.objects.get(user=user_profile, connection=request.user)
+    except Connections.DoesNotExist:
+        raise Http404("Solicitação não encontrado")
+
+    accept = (request.GET.get('accept', 'false'))
+
+    if(accept == 'true'):
+        connect.pendent = False
+        connect.since = today = datetime.today()
+        connect.save()
+    else:
+        connect.delete()
+
+    return profile(request, request.user.username)
 
 
 @login_required

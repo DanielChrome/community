@@ -6,7 +6,7 @@
                 <div class="column is-3">
                     <a href="{% url 'profile' user_name=follow.connection.username %}">
                         <figure class="image is-64x64 image-hor-centered">
-                            {% if user.photo %}
+                            {% if follow.user.photo %}
                                 <img class="clip-circle" src="/media/{{ follow.connection.photo }}" alt="{{ follow.connection.first_name }}"> 
                             {% else %}
                                 <img class="clip-circle" src="{% static 'images/profile_default.png' %}" alt="{{ follow.connection.first_name }}"> 
