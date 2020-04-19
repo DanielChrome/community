@@ -105,7 +105,9 @@
               {% include "profile_midia.html" %} 
               {% include "profile_following.html" %}
               {% include "profile_followers.html" %}
-              {% include "profile_edit_form.html" %} 
+              {% if user_profile.username == user.username %}
+                {% include "profile_edit_form.html" %}
+              {% endif %}
             </div>
           </div>
         </div>

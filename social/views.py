@@ -39,6 +39,7 @@ def profile(request, user_name):
             is_followed = Connections.objects.get(user=request.user, connection=user_profile)
         except Connections.DoesNotExist:
             is_followed = False
+        form = UserProfile(instance=user_profile)
     else:
         if request.method == 'POST':
             # create a form instance and populate it with data from the request:
