@@ -48,6 +48,17 @@
                   </a>
                   {% endif %}
                 </div>             
+              </div>
+            {% else %}
+              <div class="column is-3">
+                <div class="buttons is-right">
+                    <button id="editProfile" class="button is-link is-small modal-button" data-target="modal-edit">
+                        <span class="icon is-small">
+                          <i class="fas fa-edit"></i>
+                        </span>
+                        <span>Editar Informações</span>
+                    </button>
+                </div>
               </div> 
             {% endif %}
           </div>
@@ -93,7 +104,8 @@
               {% include "profile_about.html" %} 
               {% include "profile_midia.html" %} 
               {% include "profile_following.html" %}
-              {% include "profile_followers.html" %} 
+              {% include "profile_followers.html" %}
+              {% include "profile_edit_form.html" %} 
             </div>
           </div>
         </div>

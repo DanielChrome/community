@@ -27,7 +27,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ['mov-on.herokuapp.com', 'localhost']
+ALLOWED_HOSTS = ['mov-on.herokuapp.com', 'localhost', "127.0.0.1"]
 
 LOGIN_URL = '/users/login/'
 LOGIN_REDIRECT_URL = 'main'
@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'users.apps.UsersConfig',
+    'bootstrap_modal_forms',
     'core',
     'social',
 ]

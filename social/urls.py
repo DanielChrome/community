@@ -7,7 +7,7 @@ from django.contrib import admin
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
-    path("", views.main, name="main"),
+    path("", views.MainView.as_view(), name="main"),
     path("<str:user_name>", views.profile, name="profile"),
     path("<str:user_name>/addconnection", views.add_connection, name="addconnection"),
     path("<str:user_name>/acceptconnection", views.accept_connection, name="acceptconnection"),

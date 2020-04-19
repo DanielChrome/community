@@ -23,7 +23,7 @@ function clickMenu(evt, menuName) {
         menulinks[i].className = menulinks[i].className.replace(" is-active", "");
     }
     document.getElementById(menuName).style.display = "block";
-    //evt.currentTarget.getElementsByClassName("menu-about"). className += " is-active";
+    //testeevt.currentTarget.getElementsByClassName("menu-about"). className += " is-active";
     menulinks = evt.currentTarget.getElementsByClassName("menu-about");
     for (i = 0; i < x.length; i++) {
         menulinks[i].className = menulinks[i].className += " is-active";
@@ -32,4 +32,26 @@ function clickMenu(evt, menuName) {
 
 function accept(event, u, a) {
     window.location.replace('/social/'+u+'/acceptconnection?accept='+a);
+}
+
+var formAjaxSubmit = function(form, modal) {
+    $(form).submit(function (e) {
+        e.preventDefault();
+        $.ajax({
+            type: $(this).attr('method'),
+            url: $(this).attr('action'),
+            data: $(this).serialize(),
+            success: function (xhr, ajaxOptions, thrownError) {
+                if ( $(xhr).find('.has-error').length > 0 ) {
+                    $(modal).find('.modal-body').html(xhr);
+                    formAjaxSubmit(form, modal);
+                } else {
+                    $(modal).modal('toggle');
+                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                // handle response errors here
+            }
+        });
+    });
 }

@@ -1,19 +1,25 @@
 from datetime import datetime
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.views.generic import ListView
-from .forms import UserPostsForm
+from .forms import UserPostsForm, UserProfile
 from .models import UserPost
 from users.models import CustomUser, Connections, ConnectionType
 from django.core.paginator import Paginator
+from django.views.generic import TemplateView
 
 
-@login_required
-def main(request):
-    followings = Connections.objects.filter(user=request.user, pendent=False)
-    followers = Connections.objects.filter(connection=request.user, pendent=False)
-    return render(request, "main.html", {'followings': followings, 'followers': followers})
+@method_decorator(login_required, name='dispatch')
+class MainView(TemplateView):
+    template_name = "main.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["followings"] = Connections.objects.filter(user=self.request.user, pendent=False)
+        context["followers"] = Connections.objects.filter(connection=self.request.user, pendent=False)
+        return context
 
 
 @login_required
@@ -33,12 +39,28 @@ def profile(request, user_name):
             is_followed = Connections.objects.get(user=request.user, connection=user_profile)
         except Connections.DoesNotExist:
             is_followed = False
+    else:
+        if request.method == 'POST':
+            # create a form instance and populate it with data from the request:
+            form = UserProfile(request.POST)
+            # check whether it's valid:
+            if form.is_valid():
+                user_profile.first_name = form.cleaned_data['first_name']
+                user_profile.last_name = form.cleaned_data['last_name']
+                user_profile.bio = form.cleaned_data['bio']
+                user_profile.save()
+                # ...
+
+        # if a GET (or any other method) we'll create a blank form
+        else:
+            form = UserProfile(instance=user_profile)
 
     data = {'user_profile': user_profile,
             'followings': followings,
             'followers': followers,
             'followers_p': followers_p,
-            'is_followed': is_followed}
+            'is_followed': is_followed,
+            'form': form}
     return render(request, "profile.html", data)
 
 

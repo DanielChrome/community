@@ -1,0 +1,58 @@
+<div id="modal-edit" class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Atualize suas informações</p>
+      <button id="modal-close" class="delete" aria-label="close"></button>
+    </header>
+    <section class="modal-card-body">
+      <form method="post">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        <div class="field">
+          <label class="label" for="{{ form.first_name.id_for_label }}"> Nome</label>
+          <div class="control">
+            {{ form.first_name }}
+          </div>        
+          {% for error in form.first_name.errors %}
+            <p class="help is-danger">{{ error|escape }}</p>
+          {% endfor %}
+        </div>
+        <div class="field">
+          <label class="label" for="{{ form.last_name.id_for_label }}"> Sobrenome</label>
+          <div class="control">
+            {{ form.last_name }}
+          </div>        
+          {% for error in form.last_name.errors %}
+            <p class="help is-danger">{{ error|escape }}</p>
+          {% endfor %}
+        </div>
+        <div class="field">
+          <label class="label" for="{{ form.bio.id_for_label }}"> Sobre mim</label>
+          <div class="control">
+            {{ form.bio }}
+          </div>        
+          {% for error in form.bio.errors %}
+            <p class="help is-danger">{{ error|escape }}</p>
+          {% endfor %}
+        </div>
+        <div class="control">
+          <input  class="button is-success" type="submit" value="Salvar">
+        </div>        
+      </form> 
+    </section>
+  </div>
+</div>
+<script>
+    $("#editProfile").click(function() {
+        $(".modal").addClass("is-active");  
+    });
+
+    $("#modal-close").click(function() {
+        $(".modal").removeClass("is-active");
+    });
+    $("#btn-cancel").click(function() {
+        $(".modal").removeClass("is-active");
+    });
+    formAjaxSubmit('#form-modal-body form', '#form-modal');
+</script>
