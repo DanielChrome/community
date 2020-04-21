@@ -13,4 +13,5 @@ urlpatterns = [
     path("<str:user_name>/acceptconnection", views.accept_connection, name="acceptconnection"),
     path("<str:user_name>/removeconnection", views.remove_connection, name="removeconnection"),
     path("<str:user_name>/posts", views.user_post, name='userposts'),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+]
+# + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
