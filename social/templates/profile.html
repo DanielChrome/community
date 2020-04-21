@@ -4,6 +4,7 @@
 {% block style %}
   {{ block.super }}
   <link rel="stylesheet" type="text/css" href="{% static 'css/bulma-carousel.min.css' %}"/>
+   <link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}"/>
 {% endblock %}
 {% block script %}
     {{ block.super }}
@@ -107,6 +108,7 @@
               {% include "profile_followers.html" %}
               {% if user_profile.username == user.username %}
                 {% include "profile_edit_form.html" %}
+                {% include "profile_edit_photo.html" %}
               {% endif %}
             </div>
           </div>

@@ -1,0 +1,39 @@
+<div id="modal-photo" class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Atualize sua foto</p>
+      <button id="modal-close" class="delete" aria-label="close"></button>
+    </header>
+    <section class="modal-card-body">
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        <div class="field">
+          <label class="label" for="{{ form.photo.id_for_label }}"> Foto</label>
+          <div class="control">
+            {{ form.photo }}
+          </div>        
+          {% for error in form.photo.errors %}
+            <p class="help is-danger">{{ error|escape }}</p>
+          {% endfor %}
+        </div>        
+        <div class="control">
+          <input  class="button is-success" name="photo_sub" type="submit" value="Salvar">
+        </div>        
+      </form> 
+    </section>
+  </div>
+</div>
+<script>
+  $("#photo_edit").click(function() {
+      $("#modal-photo").addClass("is-active");  
+  });
+  $("#modal-close").click(function() {
+      $("#modal-photo").removeClass("is-active");
+  });
+  $("#btn-cancel").click(function() {
+      $("#modal-photo").removeClass("is-active");
+  });
+  formAjaxSubmit('#form-modal-body form', '#form-modal');
+</script>

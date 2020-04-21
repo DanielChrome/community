@@ -4,7 +4,7 @@
       <div class="card-image">
         <figure class="image is-1by1">
             {% if user.photo %}
-            <img src="/media/{{ user.photo }}" alt="Profile"> 
+            <img src="{{ user.photo_profile.url }}" alt="Profile"> 
             {% else %}
                 <img src="{% static 'images/profile_default.png' %}" alt="Profile"> 
             {% endif %}

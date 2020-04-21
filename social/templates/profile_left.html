@@ -2,13 +2,28 @@
 <div class="column is-2">
   <div class="card">
     <div class="card-image">
-      <figure class="image is-1by1">
-        {% if user_profile.photo %}
-        <img src="/media/{{ user_profile.photo }}" alt="Profile">
-        {% else %}
-        <img src="{% static 'images/profile_default.png' %}" alt="Profile">
-        {% endif %}
-      </figure>
+      <div class="profile-photo">
+        <figure class="image is-1by1">
+          {% if user_profile.photo %}
+          <img class="profile-photo" src="{{ user_profile.photo_profile.url }}" alt="Profile">
+          {% else %}
+          <img class="profile-photo" src="{% static 'images/profile_default.png' %}" alt="Profile">
+          {% endif %}
+        </figure>
+        {% if user_profile.username == user.username %}
+        <div id="photo_edit" class="photo-edit">
+          <a href="#">
+            <span class="icon has-text-dark is-large">
+              <span class="fa-stack">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fas fa-camera fa-stack-1x fa-inverse"></i>
+              </span>
+            </span>
+            <p class="is-size-7">Atualizar</p>
+          </a>
+        </div>   
+        {% endif %}     
+      </div>      
     </div>
     <div class="card-content">
       <div class="media">

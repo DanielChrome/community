@@ -36,17 +36,17 @@ function accept(event, u, a) {
 
 var formAjaxSubmit = function(form, modal) {
     $(form).submit(function (e) {
-        e.preventDefault();
+        //e.preventDefault();
         $.ajax({
             type: $(this).attr('method'),
             url: $(this).attr('action'),
             data: $(this).serialize(),
             success: function (xhr, ajaxOptions, thrownError) {
                 if ( $(xhr).find('.has-error').length > 0 ) {
-                    $(modal).find('.modal-body').html(xhr);
+                    $(modal).find('.modal-card-body').html(xhr);
                     formAjaxSubmit(form, modal);
                 } else {
-                    $(modal).modal('toggle');
+                    $(modal).removeClass("is-active");
                 }
             },
             error: function (xhr, ajaxOptions, thrownError) {

@@ -1,11 +1,21 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.conf import settings
+from imagekit.models import ImageSpecField
+from pilkit.processors import ResizeToFill
 
 
 class CustomUser(AbstractUser):
     bio = models.TextField(default="")
     photo = models.ImageField(upload_to='user_photos', null=True, blank=True)
+    photo_small = ImageSpecField(source='photo',
+                                 processors=[ResizeToFill(64, 64)],
+                                 format='JPEG',
+                                 options={'quality': 80})
+    photo_profile = ImageSpecField(source='photo',
+                                 processors=[ResizeToFill(200, 200)],
+                                 format='JPEG',
+                                 options={'quality': 80})
     # add additional fields in here
 
     def __str__(self):

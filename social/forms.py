@@ -7,13 +7,14 @@ class UserPostsForm(forms.Form):
 
 
 class UserProfile(forms.ModelForm):
-    first_name = forms.CharField(widget=forms.TextInput(
-        attrs={'class': 'input'}))
-    last_name = forms.CharField(widget=forms.TextInput(
-        attrs={'class': 'input'}))
-    bio = forms.CharField(widget=forms.Textarea(
-        attrs={'class': 'textarea', 'rows': 2}))
+    first_name = forms.CharField(required=False, widget=forms.TextInput(
+        attrs={'class': 'input', 'required': False}))
+    last_name = forms.CharField(required=False, widget=forms.TextInput(
+        attrs={'class': 'input', 'required': False}))
+    bio = forms.CharField(required=False, widget=forms.Textarea(
+        attrs={'class': 'textarea', 'rows': 2,'required': False}))
+    photo = forms.ImageField(required=False)
 
     class Meta:
         model = CustomUser
-        fields = ['first_name', 'last_name', 'bio']
+        fields = ['first_name', 'last_name', 'bio', 'photo']

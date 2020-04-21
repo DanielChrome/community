@@ -42,17 +42,21 @@ def profile(request, user_name):
         form = UserProfile(instance=user_profile)
     else:
         if request.method == 'POST':
-            # create a form instance and populate it with data from the request:
-            form = UserProfile(request.POST)
-            # check whether it's valid:
-            if form.is_valid():
-                user_profile.first_name = form.cleaned_data['first_name']
-                user_profile.last_name = form.cleaned_data['last_name']
-                user_profile.bio = form.cleaned_data['bio']
-                user_profile.save()
-                # ...
+            if 'photo_sub' in request.POST:
+                form = UserProfile(request.POST, request.FILES)
+                if form.is_valid():
+                    user_profile.photo = form.cleaned_data['photo']
+                    user_profile.save()
+            elif 'info_sub' in request.POST:
+                form = UserProfile(request.POST)
+                # check whether it's valid:
+                if form.is_valid():
+                    user_profile.first_name = form.cleaned_data['first_name']
+                    user_profile.last_name = form.cleaned_data['last_name']
+                    user_profile.bio = form.cleaned_data['bio']
+                    user_profile.save()
 
-        # if a GET (or any other method) we'll create a blank form
+        # if a GET (or any other method) we'll create form
         else:
             form = UserProfile(instance=user_profile)
 

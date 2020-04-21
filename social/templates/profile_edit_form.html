@@ -6,7 +6,7 @@
       <button id="modal-close" class="delete" aria-label="close"></button>
     </header>
     <section class="modal-card-body">
-      <form method="post">
+      <form id="form-info"method="post">
         {% csrf_token %}
         {{ form.non_field_errors }}
         <div class="field">
@@ -37,7 +37,7 @@
           {% endfor %}
         </div>
         <div class="control">
-          <input  class="button is-success" type="submit" value="Salvar">
+          <input  class="button is-success" name="info_sub" type="submit" value="Salvar">
         </div>        
       </form> 
     </section>
@@ -45,14 +45,14 @@
 </div>
 <script>
     $("#editProfile").click(function() {
-        $(".modal").addClass("is-active");  
+        $("#modal-edit").addClass("is-active");  
     });
 
     $("#modal-close").click(function() {
-        $(".modal").removeClass("is-active");
+        $("#modal-edit").removeClass("is-active");
     });
     $("#btn-cancel").click(function() {
-        $(".modal").removeClass("is-active");
+        $("#modal-edit").removeClass("is-active");
     });
     formAjaxSubmit('#form-modal-body form', '#form-modal');
 </script>
