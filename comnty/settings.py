@@ -79,22 +79,28 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'comnty.wsgi.application'
 
-# STORAGE SETTINGS
-AWS_ACCESS_KEY_ID = config('AWS_ID')
-AWS_SECRET_ACCESS_KEY = config('AWS_KEY')
-AWS_STORAGE_BUCKET_NAME = config('AWS_BUCKET')
-AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
-AWS_S3_OBJECT_PARAMETERS = {
-    'CacheControl': 'max-age=86400',
-}
-AWS_LOCATION = 'static'
+USE_S3 = config('USE_S3', default=True, cast=bool)
 
-STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
+if USE_S3:
+    # STORAGE SETTINGS
+    AWS_ACCESS_KEY_ID = config('AWS_ID')
+    AWS_SECRET_ACCESS_KEY = config('AWS_KEY')
+    AWS_STORAGE_BUCKET_NAME = config('AWS_BUCKET')
+    AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+    AWS_S3_OBJECT_PARAMETERS = {
+        'CacheControl': 'max-age=86400',
+    }
+    STATIC_LOCATION = 'static'
+    STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, STATIC_LOCATION)
+    STATICFILES_STORAGE = 'comnty.storage_backends.StaticStorage'
+    PUBLIC_MEDIA_LOCATION = 'media'
+    MEDIA_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, PUBLIC_MEDIA_LOCATION)
+    DEFAULT_FILE_STORAGE = 'comnty.storage_backends.PublicMediaStorage'
+else:
+    STATIC_URL = '/static/'
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    MEDIA_URL = '/media/'
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
