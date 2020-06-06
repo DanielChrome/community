@@ -3,7 +3,7 @@ boto3==1.12.43
 botocore==1.15.43
 dj-database-url==0.5.0
 dj-static==0.0.6
-Django==3.0.4
+Django==3.0.7
 django-appconf==1.0.4
 django-imagekit==4.0.2
 django-storages==1.9.1
